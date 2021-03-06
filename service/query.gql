@@ -1,0 +1,11 @@
+query MyQuery {
+  orders {
+    user {
+      name
+    }
+    product {
+      name
+      cost
+    }
+  }
+}

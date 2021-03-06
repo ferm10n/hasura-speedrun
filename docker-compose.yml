@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  pg:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpass
+      POSTGRES_DB: demo
+  hasura:
+    image: hasura/graphql-engine:v1.3.3
+    depends_on:
+      - pg
+    ports:
+      - 8080:8080
+    restart: always # in case hasura starts before pg
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://testuser:testpass@pg:5432/demo
+      HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
+      HASURA_GRAPHQL_DEV_MODE: 'true'
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ADMIN_SECRET: adminsecret
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: 'false'

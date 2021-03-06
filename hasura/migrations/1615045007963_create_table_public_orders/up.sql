@@ -1,0 +1,1 @@
+CREATE TABLE "public"."orders"("id" bigserial NOT NULL, "user_id" bigint NOT NULL, "product_id" bigint NOT NULL, "ts" date NOT NULL DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON UPDATE cascade ON DELETE cascade, FOREIGN KEY ("product_id") REFERENCES "public"."products"("id") ON UPDATE cascade ON DELETE cascade);
